@@ -1,0 +1,17 @@
+[Unit]
+Description=Fennec pool: payment processor (sendmany from the pool wallet; emergency brake: deployment/pause-payments.sh)
+After=fnnc-pool-redis.service fnnc-node.service
+Requires=fnnc-pool-redis.service
+[Service]
+Type=simple
+User=fnncpool
+WorkingDirectory=/opt/fnnc-nodejs-pool
+ExecStart=/usr/bin/node /opt/fnnc-nodejs-pool/init.js -module=payments
+Restart=always
+RestartSec=15
+TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

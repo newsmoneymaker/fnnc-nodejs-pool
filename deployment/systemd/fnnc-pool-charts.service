@@ -1,0 +1,17 @@
+[Unit]
+Description=Fennec pool: charts data collector (hash rate, difficulty, miners, workers on the home page)
+After=fnnc-pool-redis.service fnnc-pool-api.service
+Requires=fnnc-pool-redis.service
+[Service]
+Type=simple
+User=fnncpool
+WorkingDirectory=/opt/fnnc-nodejs-pool
+ExecStart=/usr/bin/node /opt/fnnc-nodejs-pool/init.js -module=chartsDataCollector
+Restart=always
+RestartSec=5
+TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

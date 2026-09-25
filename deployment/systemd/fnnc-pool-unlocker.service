@@ -1,0 +1,17 @@
+[Unit]
+Description=Fennec pool: block unlocker (credits the miners after the coinbase maturity)
+After=fnnc-pool-redis.service fnnc-node.service
+Requires=fnnc-pool-redis.service
+[Service]
+Type=simple
+User=fnncpool
+WorkingDirectory=/opt/fnnc-nodejs-pool
+ExecStart=/usr/bin/node /opt/fnnc-nodejs-pool/init.js -module=unlocker
+Restart=always
+RestartSec=15
+TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
